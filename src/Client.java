@@ -35,11 +35,11 @@ import org.apache.log4j.SimpleLayout;
 
 public class Client {
 
-    static final String REST_URL = "http://bioportal.lirmm.fr:8082/ontologies?&include=all";
-    static final String API_KEY = "759c2da4-f6e1-4b0b-94e9-842a2ab09d01";
+    static final String REST_URL = "http://data.bioontology.org/ontologies";
+    static final String API_KEY = "0651c2ef-1193-436d-95c1-09901daa5b79";
     static final ObjectMapper mapper = new ObjectMapper();
     static HashMap<String , Terme>Termes = new HashMap<String, Terme>();
-    static Logger logRoot = Logger.getRootLogger();
+    static Logger logRoot = Logger.getLogger(Client.class);
    
    
     static int nombre = 0 ;
@@ -67,20 +67,18 @@ public class Client {
         
          List<String> ontologies = new ArrayList<String>();  
          
-        
+     System.out.println(resources.size());  
          try {
         	 
         	// Iterate looking for ontology in SIFR group 
         	 
         	 for (JsonNode jsonNode : resources) {
         			
-        			if(jsonNode.findValue("group").get(0).asText().contains("SIFR") ){
-        				
-        				
-        				logRoot.info(jsonNode.findValue("@id").asText());
+        			
         				ontologies.add(jsonNode.findValue("@id").asText());
+        				
         			}
-        			} 
+        		
 			
 		} catch (NullPointerException e) {
 			// TODO: handle exception
@@ -88,7 +86,7 @@ public class Client {
          
 
          //  
-         logRoot.info("Le nombre d'ontologie du Groupe SIFR est : " + ontologies.size());
+         logRoot.info("Le nombre d'ontologies: " + ontologies.size());
          
    
         
@@ -99,66 +97,115 @@ public class Client {
         	 
         	 
 			 
-        	 for (String url : ontologies) {
+        	 for (int u = 0; u <= ontologies.size(); u++) 
         		 
-        		 System.out.println(url);
+        		 
+        	 {
+        		 String url = ontologies.get(u) ;
+        		 
+        		 stf = ontologies.get(u).split("/") ;
+        		 
+        		 System.out.println(stf[stf.length-1]);
+        		 
+        		 logRoot.info("###############################*********|" + u + "|*****#######################################") ;
+        		 logRoot.info(url);
 				
         		 start = System.nanoTime();
    			  
-   			  // Recuperer le nombre de pages Pagecount 
-   		         
-   			  
-   			  //String url=Ontologies.get(j);
-   			  
-   		        String cc =get( url+"/classes?page=1&pagesize=100&include_context=false&include_links=false");
+   			 
+   				 
+   				 
+   				 String cc =get( url+"/classes?page=1&pagesize=100&include_context=false&include_links=false");
+   		     
    		        
    		        JsonNode rsc = jsonToNode(cc);
    		        
-   		        Integer pagecount = rsc.get("pageCount").asInt();
-   		       // System.out.println(pagecount);
-   			  
-   		        for (int i = 1; i < pagecount+1; i++) {
+   		        if(rsc!=null){
+   		        	     Integer pagecount = rsc.get("pageCount").asInt();
+   		      
+   			  logRoot.info("le nombre de page  : " +pagecount);
+   		        for (int i = 1; i < pagecount; i++) {
+   		        	
+   		        	try {
+   		        		
+   		        		
+   		        	 
+   	   		        	
+   	   		        	
+   	   		        	String resourcesString1 = get(url+"/classes?page="+i+"&pagesize=100&include_context=false&include_links=false");
+   	   		        	   	   		        
+   	   		        	
+   	   		        	JsonNode resources1 = jsonToNode(resourcesString1);
+   	                
+   	                
+   	                if (resources1 != null){
+   	                	
+   	                	
+						Iterator<JsonNode> link1 = resources1.get("collection").elements();
+   	   	            	
+   	   	                
+   	   		        	while(link1.hasNext()){
+   	               	 
+   	               	 
+   	   		        		JsonNode jsnd =link1.next() ; 
+   	               	   
+   	   		        		charger(jsnd);
+   	                	
+   	                	
+   	                }
+   	   		        
+   	                
+   	                
+   	   		        	
+   	   		        	
+   	                 
+   	                }
+						
+					} catch (Exception e) {
+						
+						logRoot.info(e.getMessage());
+						logRoot.info(e.getStackTrace().toString());
+						System.out.println("|||||||"  );
+						e.printStackTrace() ;
+						// TODO: handle exception
+					}
    				  
    				
-   			  
-           	
-   		        	String resourcesString1 = get(url+"/classes?page="+i+"&pagesize=100&include_context=false&include_links=false");
-   		        	JsonNode resources1 = jsonToNode(resourcesString1);
-                
-                
-                
-                
-                
-                
-   		        	stf = resources1.get("collection").get(0).get("links").get("ontology").asText().split("/"); ;
-       		 
-        		
-       		 
-      
-                
-   		        	Iterator<JsonNode> link1 = resources1.get("collection").elements();
-            	
-                
-   		        	while(link1.hasNext()){
-               	 
-               	 
-   		        		JsonNode jsnd =link1.next() ; 
-               	   
-   		        		charger(jsnd);
-               
-               	 
-               	 
-                    
-                }
+   		        	
+   		      
            }
    		       
+   		     logRoot.info("le nombre de Termes " + Termes.size() + " l'ontologie " + url);
    		        
    		       // System.out.println(stf[stf.length-1]);
    		       writecsv(stf[stf.length-1]);   
    		       
+   		       
    		       Termes.clear();
-   	}
+   		        	
+   		        }
+   		        
+   		        else {
+   		        	
+   		         logRoot.info("**!!!!!!!!*********Probleme avec l'ontologie  : "+ url);
+   		        }
+   		        
+   		   
+   			 }
+   		         
+   			  
+   			 
+   			  
+   		     
+   	
 		} catch (Exception e) {
+			
+			logRoot.info(e.getMessage());
+			logRoot.info(e.getStackTrace().toString());
+			
+			e.printStackTrace();
+		
+			
 			// TODO: handle exception
 		}
          
@@ -168,23 +215,15 @@ public class Client {
 			logRoot.info("Temps Total"+ seconds/60);  
 		}
         
-   
-    
-    
-    
-    
-     
+
      private static void writecsv( String oname) throws IOException{
-    	 
-    	
-    	
-    	 	
-    	 
+    
     	 nombre = 0 ;
 		 
-    	 FileOutputStream fos = new FileOutputStream("E:\\lab1\\"+ oname +".csv");
-    	
-    	 byte[] enc = new byte[] { (byte)0xEF, (byte)0xBB, (byte)0xBF }; 
+    	 FileOutputStream fos = new FileOutputStream("E:\\encsv\\"+ oname +".csv");
+    	 
+    
+    	 byte[] enc = new byte[] { (byte)0xEF, (byte)0xBB, (byte)0xBF }; 	//< pour codage UTF8
     	 fos.write(enc);
     	 
     	 OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
@@ -207,10 +246,8 @@ public class Client {
 						   Terme st =Termes.get(key);
 					
 			        	 
-						//  logRoot.info(st.getPreflabel()+"//"+st.getId());
-						   
-						   
-						  
+						// logRoot.info(st.getPreflabel()+"//"+st.getIds());
+
 						   writer.append(String.valueOf(st.getPreflabel()  + ";" + StringUtils.join(st.getIds(),",")  ));
 						//fileWriter.append(COMMA_DELIMITER);
 						
@@ -273,7 +310,7 @@ public class Client {
 			 t= t.replace("\"" ," ") ; 
 			 t = t.trim() ; 
 			 
-			 System.out.println(t);
+			// System.out.println(t);
     		 st.setPreflabel(t);
     		 st.addIds(j.get("@id").asText());
     		 
@@ -304,7 +341,7 @@ public class Client {
             		 tt= tt.replace("\"" ," ") ; 
             		  tt= tt.replace('"', ' ') ; 
             		 tt = tt.trim() ; 
-            		 System.out.println(tt);
+            		// System.out.println(tt);
             		 st.addSynonymes(StringUtils.normalizeSpace(tt));
             	 }
             	   
@@ -335,9 +372,11 @@ public class Client {
         try {
             root = mapper.readTree(json);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        	return root;
+            //e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+        	return root;
+          //  e.printStackTrace();
         }
         return root;
     }
@@ -354,14 +393,18 @@ public class Client {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Authorization", "apikey token=" + API_KEY);
             conn.setRequestProperty("Accept", "application/json");
+            
             rd = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
+           
             while ((line = rd.readLine()) != null) {
                 result += line;
             }
             rd.close();
         } catch (Exception e) {
-            e.printStackTrace();
+        	return result;
+           // e.printStackTrace();
+           
         }
         return result;
     }
