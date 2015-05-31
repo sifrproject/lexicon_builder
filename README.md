@@ -7,7 +7,7 @@ Utilisation
 il faut fournir URL et API_Key (déjà présent sur le code  les deux branch)
 ainsi que les dossier ou ecrire  pour les fichier 
 
-** iterateur utilisé** : 
+*iterateur utilisé* : 
 
 “classes?page=1&pagesize=100&include_context=false&include_links=false"
 
