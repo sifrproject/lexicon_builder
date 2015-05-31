@@ -4,8 +4,9 @@
 il y a deux classe main client_fr(pour les ontologies du groupe SIFR récupérées sur bioportal Lirrm ) et client_en ( pour les ontologies du bioportal NCBO ) 
 Utilisation 
 
-il faut fournir URL et API_Key (déjà présent sur le code  les deux branch)
-ainsi que les dossier ou ecrire  pour les fichier 
+il faut fournir URL et API_Key 
+il faut créer des comptes sur les portails pour obtenir des apikey spécifiques pour vous.
+ainsi que les dossier ou ecrire  pour les fichiers 
 
 *iterateur utilisé* : 
 
