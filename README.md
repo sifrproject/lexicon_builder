@@ -27,9 +27,9 @@ regex : libraire d’expression régulière pour définir les règle de nettoyag
 
 **les etapes  :**
 
-1 lancer le programme client  .
-2 lancer le programme statistique mettre le dossier de chaque  ontologie.. .
-3 lancer merge .
+1. lancer le programme client  .
+2. lancer le programme statistique mettre le dossier de chaque  ontologie.. .
+3. lancer merge .
 statistiques :
 le nombre de présence de chaque caractère spécial dans chaque ontologie :
 la taille de l’ontologie :utilisation d’une boucle sur les  codes ASCII .
