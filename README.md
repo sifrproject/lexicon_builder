@@ -7,16 +7,16 @@ Utilisation
 il faut fournir URL et API_Key (déjà présent sur le code  les deux branch)
 ainsi que les dossier ou ecrire  pour les fichier 
 
-iterateur utilisé : 
+** iterateur utilisé : 
 
 “classes?page=1&pagesize=100&include_context=false&include_links=false"
 
 
  plus d’information sur : 
-http://data.bioontology.org/documentation
+[ Voir documentation ](http://data.bioontology.org/documentation)
 
 
-les api :
+** les api :
 
 jackson : pour parser les fichier json de L’api REST .
 opencsv : pour lecture/écriture des fichier .csv
