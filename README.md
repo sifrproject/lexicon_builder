@@ -19,11 +19,11 @@ ainsi que les dossier ou ecrire  pour les fichiers
 
 **les api :**
 
-jackson : pour parser les fichier json de L’api REST .
-opencsv : pour lecture/écriture des fichier .csv
-String.Utils pour les traitement  sur les chaînes de caractères .
-log4j : pour la journalisation 
-regex : libraire d’expression régulière pour définir les règle de nettoyage 
+- jackson : pour parser les fichier json de L’api REST .
+- opencsv : pour lecture/écriture des fichier .csv
+- String.Utils pour les traitement  sur les chaînes de caractères .
+- log4j : pour la journalisation 
+- regex : libraire d’expression régulière pour définir les règle de nettoyage 
 
 **les etapes  :**
 
