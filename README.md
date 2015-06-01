@@ -34,13 +34,15 @@ il faut créer des comptes sur les portails pour obtenir des apikey  .
 
 le fichier statistiques  contient :
  
-le nombre de présence de chaque caractère spécial dans chaque ontologie :
-la taille de l’ontologie :utilisation d’une boucle sur les  codes ASCII .
+le nombre de présence de chaque caractère spécial dans chaque ontologie .
+
 
 **journalisation** (avec log4j  ) :
 
 permet d'avoir :
 
 le nombre de pages , de termes 
+
 le temps pour récupérer l’ontologie et la stocker dans le fichier csv ansi que le temps total   .
+
 les ontologies vides .
