@@ -32,14 +32,15 @@ il faut créer des comptes sur les portails pour obtenir des apikey  .
 2. lancer le programme statistique  .
 3. lancer merge   pour fusionner tous les fichiers csv dans un seul Bdico.
 
- dans le fichier statistiques :
+le fichier statistiques  contient :
  
 le nombre de présence de chaque caractère spécial dans chaque ontologie :
 la taille de l’ontologie :utilisation d’une boucle sur les  codes ASCII .
 
 **journalisation** (avec log4j  ) :
 
-on trouve :
+permet d'avoir :
+
 le nombre de pages , de termes 
 le temps pour récupérer l’ontologie et la stocker dans le fichier csv ansi que le temps total   .
 les ontologies vides .
