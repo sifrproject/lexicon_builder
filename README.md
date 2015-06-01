@@ -1,12 +1,13 @@
 # lexicon_builder
 * Dictionnary/lexicon creation from a BioPortal ontology repository
 
-il y a deux classe main client_fr(pour les ontologies du groupe SIFR récupérées sur bioportal Lirrm ) et client_en ( pour les ontologies du bioportal NCBO ) 
-Utilisation 
+il y a deux classes  client-fr pour  recuperer les ontologies du groupe SIFR du bioportal Lirrm  et client-en pour les ontologies du bioportal NCBO  ,les  URL et API_Key sont differentes .
 
-il faut fournir URL et API_Key 
-il faut créer des comptes sur les portails pour obtenir des apikey spécifiques pour vous.
-ainsi que les dossier ou ecrire  pour les fichiers 
+
+
+
+il faut créer des comptes sur les portails pour obtenir des apikey  .
+
 
 *iterateur utilisé* : 
 
@@ -17,7 +18,7 @@ ainsi que les dossier ou ecrire  pour les fichiers
 [ Voir documentation ](http://data.bioontology.org/documentation)
 
 
-**les api :**
+**les api utulisé :**
 
 - jackson : pour parser les fichier json de L’api REST .
 - opencsv : pour lecture/écriture des fichier .csv
@@ -27,13 +28,16 @@ ainsi que les dossier ou ecrire  pour les fichiers
 
 **les etapes  :**
 
-1. lancer le programme client  .
-2. lancer le programme statistique mettre le dossier de chaque  ontologie.. .
-3. lancer merge .
-statistiques :
+1. lancer le programme client  pour recuperer les ontologies chaque ontologie dans un fichier .csv .
+2. lancer le programme statistique  .
+3. lancer merge   pour fusionner tous les fichiers csv dans un seul Bdico.
+
+ dans le fichier statistiques :
 le nombre de présence de chaque caractère spécial dans chaque ontologie :
 la taille de l’ontologie :utilisation d’une boucle sur les  codes ASCII .
 
 **journalisation** (avec log4j  ) :
-
+on trouve :
+le nombre de pages , de termes 
 le temps pour récupérer l’ontologie et la stocker dans le fichier csv ansi que le temps total   .
+les ontologies vides .
