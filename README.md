@@ -18,7 +18,7 @@ il faut créer des comptes sur les portails pour obtenir des apikey  .
 [ Voir documentation ](http://data.bioontology.org/documentation)
 
 
-**les api utulisé :**
+**les api utilisé :**
 
 - jackson : pour parser les fichier json de L’api REST .
 - opencsv : pour lecture/écriture des fichier .csv
