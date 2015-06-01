@@ -15,25 +15,53 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.SimpleLayout;
 
 import com.opencsv.CSVReader;
 
 
 public class Statistique {
-	static Logger logRoot = Logger.getRootLogger();
+	
+	
+	
+	//static Logger logRoot = Logger.getLogger(Statistique.class);
 
 	public static void main(String[] args) throws IOException {
 		
-		String dp = "E:\\lab1" ; 
+		
+		String path=new File("").getAbsolutePath(); 
+		   System.out.println(path);
+		
+		Logger logRoot = Logger.getRootLogger();
+
+	    FileAppender appender = null;
+		
+	      appender = new FileAppender();
+
+	      appender.setLayout(new SimpleLayout());
+	      appender.setFile(path+"//statistiques.log");
+	      appender.activateOptions();
+	      logRoot.addAppender(appender);
+	      logRoot.setLevel(Level.DEBUG);
+		
+		
+		
+		
+		
+		String dp = ".\\Dicos" ; 
 		
 
+		
+		
 		JsonFactory jfactory = new JsonFactory();
 		/*** write to file ***/
 		JsonGenerator jGenerator = jfactory.createJsonGenerator(new File(
-				"e:\\flare.json"), JsonEncoding.UTF8);
+				path+"\\eng.json"), JsonEncoding.UTF8);
 		jGenerator.writeStartObject(); // {
-		jGenerator.writeStringField("name", "SIFR");
+		jGenerator.writeStringField("name", "ENGLISH");
 		jGenerator.writeFieldName("children"); // "children" :
 		jGenerator.writeStartArray(); // [
 		
@@ -45,7 +73,7 @@ public class Statistique {
 				CSVReader reader = new CSVReader(new FileReader(dp+"\\"+ontologie), ';' );
 				ontologie= ontologie.replace(".csv", "");
 				logRoot.info("Les statistiques pour L'ontologie  " + ontologie);
-				
+				//logRoot.log(info, "Les statistiques pour L'ontologie  " + ontologie);
 				jGenerator.writeStartObject(); // {
 				jGenerator.writeStringField("name", ontologie);
 				jGenerator.writeFieldName("children"); // "children" :
@@ -97,7 +125,7 @@ public class Statistique {
 					 String c = Character.toString((char) i) ;
 						
 						
-					 logRoot.info("Le caracte : " +  c + "   apparait " + stat.get(i) );
+					 logRoot.info("Le caractere : " +  c + "   apparait " + stat.get(i) );
 					 
 					 jGenerator.writeStartObject(); // {
 					 jGenerator.writeStringField("name", c +":"+ stat.get(i)  ); 

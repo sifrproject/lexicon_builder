@@ -32,7 +32,8 @@ public class Merge {
 		Integer i = 0 ;
 		
 		Integer j = 0 ;
-		String dp = "E:\\lab1" ; 
+		
+		String dp = "E:\\encsv" ; 
 		
 		
 		String [] f = filesname(dp);
@@ -146,7 +147,7 @@ public class Merge {
 	private static void writecsv () throws IOException	 {
 		
 		
-		 FileOutputStream fos = new FileOutputStream("E:\\BDico.csv");
+		 FileOutputStream fos = new FileOutputStream(".\\dico\\BDico.csv");
 	    	
     	 byte[] enc = new byte[] { (byte)0xEF, (byte)0xBB, (byte)0xBF }; 
     	 fos.write(enc);
